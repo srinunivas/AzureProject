@@ -21,12 +21,11 @@ resource "azurerm_storage_container" "data" {
 
 resource "azurerm_storage_blob" "sample1" {
   for_each = var.storage_blob
-  #count = var.storage_blob1.enabled ? 1 : 0
-  name                   = each.value.name #"sample.txt"
+  name                   = each.value.name 
   storage_account_name   = azurerm_storage_account.storage_Account.name
   storage_container_name = each.value.storage_container_name
-  type                   = each.value.type #"Block"
-  source                 = each.value.source#file("${each.value.source}") #"sample.txt"
+  type                   = each.value.type 
+  source                 = each.value.source
   depends_on = [
     azurerm_storage_account.storage_Account, azurerm_storage_container.data, azurerm_role_assignment.blob_writer_assignment
   ]

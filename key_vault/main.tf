@@ -1,10 +1,7 @@
 data "azurerm_client_config" "current" {}
-data "azuread_service_principal" "example" {
-  display_name  = "sample"#data.azurerm_client_config.current.client_id
-}
 
 resource "azurerm_key_vault" "example" {
-  name                        = var.key_vault.name #"des-example-keyvault"
+  name                        = var.key_vault.name 
   location                    = var.location
   resource_group_name         = var.resource_group_name
   tenant_id                   = data.azurerm_client_config.current.tenant_id
@@ -15,7 +12,7 @@ resource "azurerm_key_vault" "example" {
 }
 
 resource "azurerm_key_vault_key" "example" {
-  name         = "${var.key_vault.name}-key" #"des-example-key"
+  name         = "${var.key_vault.name}-key" 
   key_vault_id = azurerm_key_vault.example.id
   key_type     = var.key_vault_key.key_type
   key_size     = var.key_vault_key.key_size
@@ -33,7 +30,7 @@ resource "azurerm_disk_encryption_set" "example" {
   resource_group_name = var.resource_group_name
   location            = var.location
   key_vault_key_id    = azurerm_key_vault_key.example.id
-  encryption_type     = var.disk_encryption_set.encryption_type #"EncryptionAtRestWithCustomerKey"
+  encryption_type     = var.disk_encryption_set.encryption_type
 
   auto_key_rotation_enabled = var.disk_encryption_set.auto_key_rotation_enabled
 
@@ -59,7 +56,7 @@ resource "azurerm_key_vault_access_policy" "example-user" {
   key_vault_id = azurerm_key_vault.example.id
 
   tenant_id = data.azurerm_client_config.current.tenant_id
-  object_id = "2e333204-0884-42d0-b2de-3b6972b428ef"#data.azuread_service_principal.example.object_id
+  object_id = data.azurerm_client_config.current.object_id
   key_permissions = var.user_kv_access_policy_key_permissions
   secret_permissions = ["Get", "List"]
   storage_permissions = ["Backup", "Delete", "Get", "List", "Purge", "Recover", "RegenerateKey", "Restore", "Set"]
