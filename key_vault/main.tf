@@ -30,8 +30,7 @@ resource "azurerm_disk_encryption_set" "example" {
   resource_group_name = var.resource_group_name
   location            = var.location
   key_vault_key_id    = azurerm_key_vault_key.example.id
-  encryption_type     = var.disk_encryption_set.encryption_type
-
+  encryption_type     = var.disk_encryption_set.encryption_type 
   auto_key_rotation_enabled = var.disk_encryption_set.auto_key_rotation_enabled
 
   identity {

@@ -51,7 +51,7 @@ variable "disable_password_authentication" {
   type = bool
 }
 
-variable "custom_data" {
+variable "ip_address" {
   type    = string
   default = null
 }

@@ -72,13 +72,11 @@ module "public_sql" {
     minimum_tls_version = "1.2"
     identity_type = "UserAssigned"
     public_network_access_enabled = true
-    #transparent_data_encryption_key_vault_key_id = optional(string, null)
     network_rule_name= "dspmdemo-sql-vnet-rule"
     subnet_id = module.sql_public_subnet_1.id
     database_name = "dspmdemo-db"
     collation = "SQL_Latin1_General_CP1_CI_AS"
     license_type = "LicenseIncluded"
-    #max_size_gb = 4
     read_scale = true
     sku_name = "S0"
     zone_redundant = true

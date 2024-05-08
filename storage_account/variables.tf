@@ -24,7 +24,19 @@ variable "storageaccount" {
     access_tier = string
     index_document = optional(string, null)
     network_rules_default_action = optional(string, "Allow")
+    identity_type                = optional(string, "SystemAssigned")
+    identity_ids                 = optional(list(string), null)
   })
+}
+
+variable "customer_managed_key" {
+  type = object({
+    enabled      = optional(bool, false)
+    key_vault_id = optional(string, null)
+    key_name     = optional(string, null) 
+    user_assigned_identity_id = optional(string, null) 
+  })
+  default = {} 
 }
 
 variable "storagecontioner" {

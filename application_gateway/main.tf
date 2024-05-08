@@ -30,17 +30,17 @@ resource "azurerm_application_gateway" "main" {
 
   backend_http_settings {
     name                  = var.app_gateway.http_setting_name
-    cookie_based_affinity = var.app_gateway.cookie_based_affinity #"Disabled"
-    port                  = var.app_gateway.port #80
-    protocol              = var.app_gateway.protocol #"Http"
-    request_timeout       = var.app_gateway.request_timeout #60
+    cookie_based_affinity = var.app_gateway.cookie_based_affinity 
+    port                  = var.app_gateway.port 
+    protocol              = var.app_gateway.protocol 
+    request_timeout       = var.app_gateway.request_timeout 
   }
 
   http_listener {
     name                           = var.app_gateway.listener_name
     frontend_ip_configuration_name = var.app_gateway.frontend_ip_configuration_name
     frontend_port_name             = var.app_gateway.frontend_port_name
-    protocol                       = var.app_gateway.protocol #"Http"
+    protocol                       = var.app_gateway.protocol 
   }
 
   request_routing_rule {

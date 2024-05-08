@@ -26,6 +26,14 @@ variable "public_ip_address_id" {
   type    = string
   default = null
 }
+variable "associate_nsg" {
+  type = bool
+  default = false
+}
+variable "network_security_group_id" {
+  type    = string
+  default = null
+}
 
 variable "tags" {
   type = map(string)

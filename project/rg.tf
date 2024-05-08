@@ -16,6 +16,6 @@ module "rg" {
 module "sa_rg" {
   source = "../resource_group"
 
-  resource_group_name = "RG-dspmdemo-storage-eastus-03"
+  resource_group_name = "RG-dspmdemo-storage-eastus-02"
   location            = "East US"
 }

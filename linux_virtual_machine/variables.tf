@@ -43,8 +43,14 @@ variable "admin_username" {
   type = string
 }
 
+variable "admin_password" {
+  type = string
+  default = null
+}
+
 variable "admin_ssh_key_username" {
   type = string
+  default = null
 }
 
 variable "disable_password_authentication" {

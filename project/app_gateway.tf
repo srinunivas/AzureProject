@@ -7,7 +7,7 @@ module "application_gateway" {
     tier = "Standard_v2"
     capacity = 2
     gateway_ip_config_name = "gateway-ip-configuration"
-    subnet_id = module.public_subnet_1.id
+    subnet_id = module.public_subnet_2.id
     frontend_port_name = "FrontendPort"
     port = 80
     frontend_ip_configuration_name = "AGIPConfig"
@@ -22,11 +22,11 @@ module "application_gateway" {
     request_routing_rule_name = "ag_rule_name"
     backend_address_pool_association = {
         pool1 = {
-            ip_configuration_name = module.private_windows_vm_1_nic.ip_configuration_name #"private-vm-1-nic-ip-config"
+            ip_configuration_name = module.private_windows_vm_1_nic.ip_configuration_name 
             network_interface_id  = module.private_windows_vm_1_nic.network_interface_id
         },
         pool2 = {
-            ip_configuration_name = module.private_windows_vm_2_nic.ip_configuration_name#"private-vm-1-nic-ip-config"
+            ip_configuration_name = module.private_windows_vm_2_nic.ip_configuration_name
             network_interface_id  = module.private_windows_vm_2_nic.network_interface_id
         }
     }
