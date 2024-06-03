@@ -1,3 +1,19 @@
+variable "org_name" {
+  type = string
+}
+
+variable "project_name" {
+  type = string
+}
+
+variable "env" {
+  type = string
+}
+
+variable "region" {
+  type = string
+}
+
 variable "vm_name" {
   type = string
 }
@@ -58,4 +74,9 @@ variable "ip_address" {
 
 variable "tags" {
   type = map(string)
+}
+
+variable "insert_data" {
+  type = bool
+  default = false
 }

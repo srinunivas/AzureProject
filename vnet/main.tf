@@ -1,5 +1,5 @@
 resource "azurerm_virtual_network" "vnet" {
-  name = var.vnet_name
+  name = "${var.org_name}-${var.project_name}-${var.env}-${var.region}-${var.vnet_name}"
 
   location            = var.location
   resource_group_name = var.rg_name

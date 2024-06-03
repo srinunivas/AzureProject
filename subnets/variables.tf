@@ -1,3 +1,19 @@
+variable "org_name" {
+  type = string
+}
+
+variable "project_name" {
+  type = string
+}
+
+variable "env" {
+  type = string
+}
+
+variable "region" {
+  type = string
+}
+
 variable "rg_name" {
   description = "Resource group in which to deploy the resource"
   type        = string

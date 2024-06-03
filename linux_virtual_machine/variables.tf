@@ -1,3 +1,19 @@
+variable "org_name" {
+  type = string
+}
+
+variable "project_name" {
+  type = string
+}
+
+variable "env" {
+  type = string
+}
+
+variable "region" {
+  type = string
+}
+
 variable "vm_name" {
   type = string
 }
@@ -44,12 +60,12 @@ variable "admin_username" {
 }
 
 variable "admin_password" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "admin_ssh_key_username" {
-  type = string
+  type    = string
   default = null
 }
 

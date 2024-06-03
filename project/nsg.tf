@@ -2,9 +2,13 @@ module "nsg1" {
   source = "../nsg"
 
   resource_group_name       = module.rg.resource_group_name
-  nsg_name                  = "nsg-dspmdemo"
+  nsg_name                  = "nsg-pub1-001"
   location                  = module.rg.location
   tags                      = local.tags
+  org_name                  = "Safemarch"
+  project_name              = "demo"
+  env                       = "prod"
+  region                    = "east-us"
   nsg_association_subnet_id = module.public_subnet_1.id
 
   network_security_rules = {
@@ -78,9 +82,13 @@ module "nsg2" {
   source = "../nsg"
 
   resource_group_name       = module.rg.resource_group_name
-  nsg_name                  = "nsg-pub-sub2-dspmdemo"
+  nsg_name                  = "nsg-pub2-001"
   location                  = module.rg.location
   tags                      = local.tags
+  org_name                  = "Safemarch"
+  project_name              = "demo"
+  env                       = "prod"
+  region                    = "east-us"
   nsg_association_subnet_id = module.public_subnet_2.id
 
   network_security_rules = {

@@ -5,22 +5,26 @@
 module "public_linux_vm_1_nic" {
   source = "../nic"
 
-  network_interface_name        = "public-linux-vm-1-nic"
+  network_interface_name        = "vm-Linux-pub-nic-001"
   location                      = module.rg.location
   resource_group_name           = module.rg.resource_group_name
   ip_configuration_name         = "public-vm-1-nic-ip-config"
   subnet_id                     = module.public_subnet_1.id
   private_ip_address_allocation = "Dynamic"
   network_security_group_id     = module.nsg1.id
-  associate_nsg                 = true 
+  associate_nsg                 = true
   public_ip_address_id          = module.linux_vm_1_public_ip.public_ip
   tags                          = local.tags
+  org_name                      = "Safemarch"
+  project_name                  = "demo"
+  env                           = "prod"
+  region                        = "east-us"
 }
 
 module "public_linux_vm_1" {
   source = "../linux_virtual_machine"
 
-  vm_name               = "public-linux-vm-1"
+  vm_name               = "vm-linux-pub-001"
   location              = module.rg.location
   resource_group_name   = module.rg.resource_group_name
   network_interface_ids = [module.public_linux_vm_1_nic.network_interface_id]
@@ -39,7 +43,7 @@ module "public_linux_vm_1" {
     sku       = "20_04-lts-gen2"
     version   = "latest"
   }
-  
+
   admin_username                  = "ubn-azureuser"
   disable_password_authentication = false
   admin_password                  = "ubn-azureuser@12345678"
@@ -68,7 +72,11 @@ module "public_linux_vm_1" {
     wget -O /mnt/ebs/PII-sample-data.pdf "https://dlptest.com/sample-data.pdf"
     EOF
 
-  tags = local.tags
+  tags         = local.tags
+  org_name     = "Safemarch"
+  project_name = "demo"
+  env          = "prod"
+  region       = "east-us"
 }
 
 #-----------------------------------------------------------
@@ -78,7 +86,7 @@ module "public_linux_vm_1" {
 module "public_linux_vm_2_nic" {
   source = "../nic"
 
-  network_interface_name        = "public-linux-vm-2-nic"
+  network_interface_name        = "vm-linux-pub-nic-002"
   location                      = module.rg.location
   resource_group_name           = module.rg.resource_group_name
   ip_configuration_name         = "public-vm-2-nic-ip-config"
@@ -86,23 +94,27 @@ module "public_linux_vm_2_nic" {
   private_ip_address_allocation = "Dynamic"
   public_ip_address_id          = module.linux_vm_2_public_ip.public_ip
   tags                          = local.tags
+  org_name                      = "Safemarch"
+  project_name                  = "demo"
+  env                           = "prod"
+  region                        = "east-us"
 }
 
 module "public_linux_vm_2" {
   source = "../linux_virtual_machine"
 
-  vm_name               = "public-linux-vm-2"
+  vm_name               = "vm-linux-pub-002"
   location              = module.rg.location
   resource_group_name   = module.rg.resource_group_name
   network_interface_ids = [module.public_linux_vm_2_nic.network_interface_id]
   size                  = "Standard_DS1_v2"
 
   os_disk = {
-    name                 = "public-linux-vm-2-disk"
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
+    name                   = "public-linux-vm-2-disk"
+    caching                = "ReadWrite"
+    storage_account_type   = "Standard_LRS"
     disk_encryption_set_id = module.cmk_keyvault.disk_encryption_set_id
-    disk_size_gb         = 30
+    disk_size_gb           = 30
   }
 
   source_image_reference = {
@@ -128,7 +140,7 @@ module "public_linux_vm_2" {
     </head>
     <body>
     <h1>Hello, World!</h1>
-    <p>This is a simple 'Hello, World!' webpage served by Apache2 on an AWS EC2 instance.</p>
+    <p>Hello, World!.</p>
     </body>
     </html>" | sudo tee /var/www/html/index.html
     echo "This is some example data for file1." > /home/ubuntu/file1.txt
@@ -140,7 +152,11 @@ module "public_linux_vm_2" {
     wget -O /mnt/ebs/PII-sample-data.pdf "https://dlptest.com/sample-data.pdf"
     EOF
 
-  tags = local.tags
+  tags         = local.tags
+  org_name     = "Safemarch"
+  project_name = "demo"
+  env          = "prod"
+  region       = "east-us"
 }
 
 #-----------------------------------------------------------
@@ -150,19 +166,23 @@ module "public_linux_vm_2" {
 module "private_linux_vm_1_nic" {
   source = "../nic"
 
-  network_interface_name        = "private-linux-vm-1-nic"
+  network_interface_name        = "vm-linux-pri-nic-001"
   location                      = module.rg.location
   resource_group_name           = module.rg.resource_group_name
   ip_configuration_name         = "private-vm-1-nic-ip-config"
   subnet_id                     = module.private_subnet_1.id
   private_ip_address_allocation = "Dynamic"
   tags                          = local.tags
+  org_name                      = "Safemarch"
+  project_name                  = "demo"
+  env                           = "prod"
+  region                        = "east-us"
 }
 
 module "private_linux_vm_1" {
   source = "../linux_virtual_machine"
 
-  vm_name               = "private-linux-vm-1"
+  vm_name               = "vm-linux-pri-001"
   location              = module.rg.location
   resource_group_name   = module.rg.resource_group_name
   network_interface_ids = [module.private_linux_vm_1_nic.network_interface_id]
@@ -210,7 +230,11 @@ module "private_linux_vm_1" {
     wget -O /mnt/ebs/PII-sample-data.pdf "https://dlptest.com/sample-data.pdf"
     EOF
 
-  tags = local.tags
+  tags         = local.tags
+  org_name     = "Safemarch"
+  project_name = "demo"
+  env          = "prod"
+  region       = "east-us"
 }
 
 #-----------------------------------------------------------
@@ -220,30 +244,34 @@ module "private_linux_vm_1" {
 module "private_linux_vm_2_nic" {
   source = "../nic"
 
-  network_interface_name        = "public-linux-vm-2-nic"
+  network_interface_name        = "vm-linux-pri-nic-002"
   location                      = module.rg.location
   resource_group_name           = module.rg.resource_group_name
   ip_configuration_name         = "private-vm-2-nic-ip-config"
   subnet_id                     = module.private_subnet_2.id
   private_ip_address_allocation = "Dynamic"
   tags                          = local.tags
+  org_name                      = "Safemarch"
+  project_name                  = "demo"
+  env                           = "prod"
+  region                        = "east-us"
 }
 
 module "private_linux_vm_2" {
   source = "../linux_virtual_machine"
 
-  vm_name               = "private-linux-vm-2"
+  vm_name               = "vm-linux-pri-002"
   location              = module.rg.location
   resource_group_name   = module.rg.resource_group_name
   network_interface_ids = [module.private_linux_vm_2_nic.network_interface_id]
   size                  = "Standard_DS1_v2"
 
   os_disk = {
-    name                 = "private-linux-vm-2-disk"
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
+    name                   = "private-linux-vm-2-disk"
+    caching                = "ReadWrite"
+    storage_account_type   = "Standard_LRS"
     disk_encryption_set_id = module.cmk_keyvault.disk_encryption_set_id
-    disk_size_gb         = 30
+    disk_size_gb           = 30
   }
 
   source_image_reference = {
@@ -281,5 +309,9 @@ module "private_linux_vm_2" {
     wget -O /mnt/ebs/PII-sample-data.pdf "https://dlptest.com/sample-data.pdf"
     EOF
 
-  tags = local.tags
+  tags         = local.tags
+  org_name     = "Safemarch"
+  project_name = "demo"
+  env          = "prod"
+  region       = "east-us"
 }

@@ -9,13 +9,21 @@ provider "azurerm" {
 module "rg" {
   source = "../resource_group"
 
-  resource_group_name = "RG-dspmdemo-prod-eastus-01"
+  resource_group_name = "rgcompute-001"
   location            = "East US"
+  org_name            = "Safemarch"
+  project_name        = "demo"
+  env                 = "prod"
+  region              = "east-us"
 }
 
 module "sa_rg" {
   source = "../resource_group"
 
-  resource_group_name = "RG-dspmdemo-storage-eastus-02"
+  resource_group_name = "rgsql-001"
   location            = "East US"
+  org_name            = "Safemarch"
+  project_name        = "demo"
+  env                 = "prod"
+  region              = "east-us"
 }

@@ -1,3 +1,19 @@
+variable "org_name" {
+  type = string
+}
+
+variable "project_name" {
+  type = string
+}
+
+variable "env" {
+  type = string
+}
+
+variable "region" {
+  type = string
+}
+
 variable "nat_gateway_name" {
   type = string
 }
@@ -11,12 +27,12 @@ variable "resource_group_name" {
 }
 
 variable "sku_name" {
-  type = string
+  type    = string
   default = "Standard"
 }
 
 variable "idle_timeout_in_minutes" {
-  type = number
+  type    = number
   default = 4
 }
 

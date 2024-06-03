@@ -1,3 +1,19 @@
+variable "org_name" {
+  type = string
+}
+
+variable "project_name" {
+  type = string
+}
+
+variable "env" {
+  type = string
+}
+
+variable "region" {
+  type = string
+}
+
 variable "network_interface_name" {
   type = string
 }
@@ -27,7 +43,7 @@ variable "public_ip_address_id" {
   default = null
 }
 variable "associate_nsg" {
-  type = bool
+  type    = bool
   default = false
 }
 variable "network_security_group_id" {

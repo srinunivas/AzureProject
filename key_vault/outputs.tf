@@ -11,5 +11,5 @@ output "key_vault_key_name" {
 }
 
 output "disk_encryption_set_id" {
-    value = try(azurerm_disk_encryption_set.example[0].id, "")
+  value = try(azurerm_disk_encryption_set.example[0].id, "")
 }

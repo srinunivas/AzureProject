@@ -19,3 +19,19 @@ variable "resource_group_name" {
 variable "allocation_method" {
   type = string
 }
+
+variable "org_name" {
+  type = string
+}
+
+variable "project_name" {
+  type = string
+}
+
+variable "env" {
+  type = string
+}
+
+variable "region" {
+  type = string
+}

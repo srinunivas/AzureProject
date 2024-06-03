@@ -3,5 +3,5 @@ output "network_interface_id" {
 }
 
 output "ip_configuration_name" {
-  value = azurerm_network_interface.nic.ip_configuration[0].name 
+  value = azurerm_network_interface.nic.ip_configuration[0].name
 }
