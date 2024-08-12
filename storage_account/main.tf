@@ -5,7 +5,8 @@ resource "azurerm_storage_account" "storage_Account" {
   account_tier                  = var.storageaccount.account_tier
   account_replication_type      = var.storageaccount.account_replication_type
   public_network_access_enabled = var.storageaccount.public_network_access_enabled
-  enable_https_traffic_only     = var.storageaccount.enable_https_traffic_only
+  https_traffic_only_enabled    = var.storageaccount.https_traffic_only_enabled
+  is_hns_enabled                = var.storageaccount.is_hns_enabled
   identity {
     type         = var.storageaccount.identity_type
     identity_ids = var.storageaccount.identity_ids

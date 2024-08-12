@@ -1,15 +1,17 @@
 module "nsg1" {
   source = "../nsg"
 
-  resource_group_name       = module.rg.resource_group_name
+  resource_group_name = "sundarsd-rg"
+  location            = "East US"
+  #resource_group_name       = module.rg.resource_group_name
   nsg_name                  = "nsg-pub1-001"
-  location                  = module.rg.location
+  #location                  = module.rg.location
   tags                      = local.tags
   org_name                  = "Safemarch"
   project_name              = "demo"
   env                       = "prod"
   region                    = "east-us"
-  nsg_association_subnet_id = module.public_subnet_1.id
+  nsg_association_subnet_id = "/subscriptions/86c82398-3448-43c6-9f4b-954558c30c5a/resourceGroups/sundarsd-rg/providers/Microsoft.Network/virtualNetworks/sundarsd-vnet/subnets/default"
 
   network_security_rules = {
     Inbound_Allow_Bastion_SSH = {
@@ -80,16 +82,17 @@ module "nsg1" {
 #-----------------------------------------------------------------------------
 module "nsg2" {
   source = "../nsg"
-
-  resource_group_name       = module.rg.resource_group_name
+  resource_group_name = "sundarsd-rg"
+  location            = "East US"
+  #resource_group_name       = module.rg.resource_group_name
   nsg_name                  = "nsg-pub2-001"
-  location                  = module.rg.location
+  #location                  = module.rg.location
   tags                      = local.tags
   org_name                  = "Safemarch"
   project_name              = "demo"
   env                       = "prod"
   region                    = "east-us"
-  nsg_association_subnet_id = module.public_subnet_2.id
+  nsg_association_subnet_id = "/subscriptions/86c82398-3448-43c6-9f4b-954558c30c5a/resourceGroups/sundarsd-rg/providers/Microsoft.Network/virtualNetworks/sundarsd-vnet/subnets/default"
 
   network_security_rules = {
 
