@@ -71,3 +71,8 @@ variable "storage_blob" {
   }))
   default = {}
 }
+
+variable "enable_sftp" {
+  type = bool
+  default = false
+}

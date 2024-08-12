@@ -7,7 +7,7 @@ module "application_gateway" {
     tier                           = "Standard_v2"
     capacity                       = 2
     gateway_ip_config_name         = "gateway-ip-configuration"
-    subnet_id                      = "/subscriptions/86c82398-3448-43c6-9f4b-954558c30c5a/resourceGroups/sundarsd-rg/providers/Microsoft.Network/virtualNetworks/sundarsd-vnet/subnets/default"
+    subnet_id                      = module.public_subnet_2.id
     frontend_port_name             = "FrontendPort"
     port                           = 80
     frontend_ip_configuration_name = "AGIPConfig"
@@ -33,8 +33,8 @@ module "application_gateway" {
 
   }
 
-  resource_group_name = "sundarsd-rg"
-  location            = "East US"
+  resource_group_name = module.rg.resource_group_name
+  location            = module.rg.location
   tags                = local.tags
   org_name            = "Safemarch"
   project_name        = "demo"

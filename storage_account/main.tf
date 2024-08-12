@@ -5,7 +5,7 @@ resource "azurerm_storage_account" "storage_Account" {
   account_tier                  = var.storageaccount.account_tier
   account_replication_type      = var.storageaccount.account_replication_type
   public_network_access_enabled = var.storageaccount.public_network_access_enabled
-  https_traffic_only_enabled    = var.storageaccount.https_traffic_only_enabled
+  #https_traffic_only_enabled    = var.storageaccount.https_traffic_only_enabled
   is_hns_enabled                = var.storageaccount.is_hns_enabled
   identity {
     type         = var.storageaccount.identity_type
@@ -57,4 +57,59 @@ resource "azurerm_role_assignment" "blob_writer_assignment" {
   scope                = azurerm_storage_account.storage_Account.id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = data.azurerm_client_config.current.object_id
+}
+
+resource "azapi_update_resource" "enablesftp" {
+  count = var.enable_sftp ? 1 : 0
+  type = "Microsoft.Storage/storageAccounts@2021-09-01"
+  resource_id = azurerm_storage_account.storage_Account.id
+
+  body = jsonencode({
+  properties = {
+  isSftpEnabled = true
+  }
+  })
+
+  depends_on = [
+  azurerm_storage_account.erpsftpserver
+  ]
+}
+
+resource "azapi_resource" "sftplocaluseroncontainer" {
+  count = var.enable_sftp ? 1 : 0
+  type = "Microsoft.Storage/storageAccounts/localUsers@2021-09-01"
+  parent_id = azurerm_storage_account.storage_Account.id
+  name = "extpartner1"
+
+  body = jsonencode({
+  properties = {
+  hasSshPassword = true,
+  homeDirectory = "erproot/"
+  hasSharedKey = true,
+  hasSshKey = false,
+  permissionScopes = [{
+  permissions = "cwl",
+  service = "blob",
+  resourceName = "erproot"
+  }]
+  }
+  })
+
+  depends_on = [
+  azurerm_storage_account.erpsftpserver,
+  azapi_update_resource.enablesftp
+  ]
+}
+
+resource "azapi_resource_action" "sftpcloudservicespassword" {
+  count = var.enable_sftp ? 1 : 0
+
+  type = "Microsoft.Storage/storageAccounts/localUsers@2022-05-01"
+  resource_id = azapi_resource.sftplocaluseroncontainer.id
+  action = "regeneratePassword"
+  body = jsonencode({
+  username = azapi_resource.sftplocaluseroncontainer[0].name
+  })
+
+  response_export_values = ["sshPassword"]
 }
