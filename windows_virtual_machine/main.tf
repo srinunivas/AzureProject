@@ -25,44 +25,18 @@ resource "azurerm_windows_virtual_machine" "vm-win-01" {
 }
 
 
-resource "null_resource" "example" {
+resource "azurerm_virtual_machine_extension" "example" {
+  name                 = "CustomScriptExtension"
+  virtual_machine_id   = azurerm_windows_virtual_machine.vm-win-01.id
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.10"
 
-  count = var.insert_data ? 1 : 0
-
-  triggers = {
-    instance_id = azurerm_windows_virtual_machine.vm-win-01.id
+  settings = <<SETTINGS
+  {
+    "commandToExecute": "powershell -ExecutionPolicy Unrestricted -Command \"& {Get-Content '${path.module}/webserver.ps1' | Out-String | Invoke-Expression}\""
   }
-
-  provisioner "local-exec" {
-    command = "echo Remote execution completed"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "winrm quickconfig -quiet",
-      "winrm set winrm/config/winrs @{MaxMemoryPerShellMB=\"1024\"}",
-      "winrm set winrm/config @{MaxTimeoutms=\"1800000\"}",
-      "winrm set winrm/config/service @{AllowUnencrypted=\"true\"}",
-      "winrm set winrm/config/service/auth @{Basic=\"true\"}",
-      "powershell.exe Add-WindowsFeature Web-Server",
-      "powershell.exe -Command \"Set-Content -Path 'C:\\\\inetpub\\\\wwwroot\\\\index.html' -Value '<html><body><h1>Hello, World!</h1></body></html>'\"",
-      "powershell.exe Start-Service W3SVC",
-      "powershell.exe Write-Output 'This is some example data for file1.' | Out-File -FilePath 'C:\\file1.txt'",
-      "powershell.exe Write-Output 'This is some example data for file2.' | Out-File -FilePath 'C:\\file2.txt'",
-      "powershell.exe Invoke-WebRequest -Uri 'https://dlptest.com/sample-data.pdf' -OutFile 'C:\\PII-sample-data.pdf'"
-    ]
-  }
-
-  connection {
-    type     = "winrm"
-    user     = var.admin_username
-    password = var.admin_password
-    host     = var.ip_address
-    port     = 5985
-    insecure = true
-    https    = false
-  }
-
-  depends_on = [azurerm_windows_virtual_machine.vm-win-01]
+  SETTINGS
 }
+
 

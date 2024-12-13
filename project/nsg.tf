@@ -1,6 +1,7 @@
 module "nsg1" {
   source = "../nsg"
 
+
   resource_group_name       = module.rg.resource_group_name
   nsg_name                  = "nsg-pub1-001"
   location                  = module.rg.location

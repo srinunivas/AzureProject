@@ -33,8 +33,8 @@ module "application_gateway" {
 
   }
 
-  location            = module.rg.location
   resource_group_name = module.rg.resource_group_name
+  location            = module.rg.location
   tags                = local.tags
   org_name            = "Safemarch"
   project_name        = "demo"

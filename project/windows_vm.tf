@@ -1,6 +1,6 @@
-#-----------------------------------------------------------
-#      Public VM 1 - Windows
-#-----------------------------------------------------------
+# #-----------------------------------------------------------
+# #      Public VM 1 - Windows
+# #-----------------------------------------------------------
 
 module "public_windows_vm_1_nic" {
   source = "../nic"
@@ -28,7 +28,7 @@ module "public_windows_vm_1" {
   location              = module.rg.location
   resource_group_name   = module.rg.resource_group_name
   network_interface_ids = [module.public_windows_vm_1_nic.network_interface_id]
-  size                  = "Standard_DS1_v2"
+  size                  = "Standard_B2s"
 
   os_disk = {
     name                 = "public-windows-vm-1-disk"
@@ -84,7 +84,7 @@ module "public_windows_vm_2" {
   location              = module.rg.location
   resource_group_name   = module.rg.resource_group_name
   network_interface_ids = [module.public_windows_vm_2_nic.network_interface_id]
-  size                  = "Standard_DS1_v2"
+  size                  = "Standard_B2s"
 
   os_disk = {
     name                   = "public-windows-vm-2-disk"
@@ -122,8 +122,8 @@ module "private_windows_vm_1_nic" {
   source = "../nic"
 
   network_interface_name        = "vm-win-pri-nic-001"
-  location                      = module.rg.location
-  resource_group_name           = module.rg.resource_group_name
+  resource_group_name = module.rg.resource_group_name
+  location            = module.rg.location
   ip_configuration_name         = "private-vm-1-nic-ip-config"
   subnet_id                     = module.private_subnet_1.id
   private_ip_address_allocation = "Dynamic"
@@ -138,10 +138,10 @@ module "private_windows_vm_1" {
   source = "../windows_virtual_machine"
 
   vm_name               = "vm-win-pri-001"
-  location              = module.rg.location
-  resource_group_name   = module.rg.resource_group_name
+  resource_group_name = module.rg.resource_group_name
+  location            = module.rg.location
   network_interface_ids = [module.private_windows_vm_1_nic.network_interface_id]
-  size                  = "Standard_DS1_v2"
+  size                  = "Standard_B2s"
 
   os_disk = {
     name                 = "private-windows-vm-1-disk"
@@ -175,8 +175,8 @@ module "private_windows_vm_2_nic" {
   source = "../nic"
 
   network_interface_name        = "vm-win-pri-nic-002"
-  location                      = module.rg.location
-  resource_group_name           = module.rg.resource_group_name
+  resource_group_name = module.rg.resource_group_name
+  location            = module.rg.location
   ip_configuration_name         = "private-vm-1-nic-ip-config"
   subnet_id                     = module.private_subnet_2.id
   private_ip_address_allocation = "Dynamic"
@@ -191,10 +191,10 @@ module "private_windows_vm_2" {
   source = "../windows_virtual_machine"
 
   vm_name               = "vm-win-pri-002"
-  location              = module.rg.location
-  resource_group_name   = module.rg.resource_group_name
+  resource_group_name = module.rg.resource_group_name
+  location            = module.rg.location
   network_interface_ids = [module.private_windows_vm_2_nic.network_interface_id]
-  size                  = "Standard_DS1_v2"
+  size                  = "Standard_B2s"
 
   os_disk = {
     name                   = "private-windows-vm-2-disk"

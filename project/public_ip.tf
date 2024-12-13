@@ -87,8 +87,8 @@ module "aglb_pip" {
   source = "../public_ip"
 
   public_ip_name      = "pip-apgwlb-001"
-  resource_group_name = module.rg.resource_group_name
-  location            = module.rg.location
+  resource_group_name = "sundarsd-rg"
+  location            = "East US"
   allocation_method   = "Static"
   tags                = local.tags
   org_name            = "Safemarch"

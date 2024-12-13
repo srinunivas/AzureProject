@@ -11,12 +11,12 @@ module "public_grs_sa_1" {
     name                              = "safemarchdemopubgrs01"
     account_tier                      = "Standard"
     account_replication_type          = "GRS"
-    enable_https_traffic_only         = true
+    https_traffic_only_enabled         = true
     is_hns_enabled                    = true
     nfsv3_enabled                     = false
     infrastructure_encryption_enabled = false
     public_network_access_enabled     = true
-    account_kind                      = "StorageV2"
+    account_kind                      = "BlockBlobStorage"
     access_tier                       = "Hot"
     index_document                    = "index.html"
     identity_type                     = "UserAssigned"
@@ -35,6 +35,8 @@ module "public_grs_sa_1" {
   customer_managed_key = {
     enabled = false
   }
+
+  enable_sftp = true
 
   storage_blob = {
     blob1 = {
@@ -107,12 +109,12 @@ module "public_grs_sa_2" {
     name                              = "safemarchdemopubgrs02"
     account_tier                      = "Standard"
     account_replication_type          = "GRS"
-    enable_https_traffic_only         = true
+    https_traffic_only_enabled         = true
     is_hns_enabled                    = true
     nfsv3_enabled                     = false
     infrastructure_encryption_enabled = false
     public_network_access_enabled     = true
-    account_kind                      = "StorageV2"
+    account_kind                      = "BlockBlobStorage"
     access_tier                       = "Hot"
     index_document                    = "index.html"
     identity_type                     = "UserAssigned"
@@ -125,6 +127,7 @@ module "public_grs_sa_2" {
     key_name                  = module.private_sql.key_vault_key_name
     user_assigned_identity_id = module.private_sql.user_assigned_identity_id
   }
+  enable_sftp = true
 
   storagecontioner = {
     container1 = {
@@ -209,8 +212,8 @@ module "private_lrs_sa_1" {
     name                              = "safemarchdemopri1rs01"
     account_tier                      = "Standard"
     account_replication_type          = "LRS"
-    enable_https_traffic_only         = true
-    is_hns_enabled                    = true
+    https_traffic_only_enabled        = true
+    is_hns_enabled                    = false
     nfsv3_enabled                     = false
     infrastructure_encryption_enabled = false
     public_network_access_enabled     = true
@@ -311,8 +314,8 @@ module "private_lrs_sa_2" {
     name                              = "safemarchdemoprilrs02"
     account_tier                      = "Standard"
     account_replication_type          = "LRS"
-    enable_https_traffic_only         = true
-    is_hns_enabled                    = true
+    https_traffic_only_enabled         = true
+    is_hns_enabled                    = false
     nfsv3_enabled                     = false
     infrastructure_encryption_enabled = false
     public_network_access_enabled     = true

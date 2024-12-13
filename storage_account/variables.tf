@@ -31,7 +31,7 @@ variable "storageaccount" {
     name                              = string
     account_tier                      = string
     account_replication_type          = string
-    enable_https_traffic_only         = optional(bool, false)
+    https_traffic_only_enabled         = optional(bool, false)
     is_hns_enabled                    = optional(bool, false)
     nfsv3_enabled                     = optional(bool, false)
     infrastructure_encryption_enabled = optional(bool, false)
@@ -70,4 +70,9 @@ variable "storage_blob" {
     source                 = optional(string, null)
   }))
   default = {}
+}
+
+variable "enable_sftp" {
+  type = bool
+  default = false
 }
